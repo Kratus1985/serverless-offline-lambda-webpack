@@ -22,8 +22,7 @@ class LambdaOfflineWebpack {
     }
 
     buildServer() {
-        this.server = new Hapi.Server();
-        this.server.connection({port: 4000, host: 'localhost'});
+        this.server = new Hapi.Server({port: 4000, host: 'localhost'});
 
         const { servicePath } = this.serverless.config;
         const serviceRuntime = this.service.provider.runtime;
