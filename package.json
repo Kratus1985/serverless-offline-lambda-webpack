@@ -1,0 +1,28 @@
+{
+  "name": "serverless-offline-lambda-webpack",
+  "version": "1.0.0",
+  "description": "Emulate AWS λ Invocations locally when developing your Serverless project with webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MacnoC/serverless-offline-lambda-webpack.git"
+  },
+  "author": "MacnoC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MacnoC/serverless-offline-lambda-webpack/issues"
+  },
+  "homepage": "https://github.com/MacnoC/serverless-offline-lambda-webpack#readme",
+  "keywords": [
+    "serverless",
+    "lambda",
+    "webpack"
+  ],
+  "dependencies": {
+    "hapi": "^18.1.0",
+    "serverless-offline": "^4.9.4"
+  }
+}
