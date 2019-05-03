@@ -1,6 +1,6 @@
 {
   "name": "serverless-offline-lambda-webpack",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Emulate AWS λ Invocations locally when developing your Serverless project with webpack",
   "main": "index.js",
   "scripts": {

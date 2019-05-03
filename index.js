@@ -9,7 +9,7 @@ class LambdaOfflineWebpack {
         this.serverlessLog = serverless.cli.log.bind(serverless.cli);
 
         this.hooks = {
-            'before:offline:start:init': this.start.bind(this)
+            'before:offline:start:init': this.start.bind(this),
         };
     }
 
@@ -22,21 +22,20 @@ class LambdaOfflineWebpack {
     }
 
     buildServer() {
-        this.server = new Hapi.Server({port: 4000, host: 'localhost'});
+        this.server = new Hapi.Server({ port: 4000, host: 'localhost' });
 
-        const { servicePath } = this.serverless.config;
+        let { servicePath } = this.serverless.config;
+
+        if (this.serverless.service.plugins.includes('serverless-webpack')) {
+            servicePath = `${servicePath}/.webpack/service`;
+        }
+
         const serviceRuntime = this.service.provider.runtime;
-
         const handlers = Object.keys(this.service.functions).reduce((acc, key) => {
             const fun = this.service.getFunction(key);
-
-            if (this.service.plugins.includes('serverless-webpack')) {
-                fun.handler = this.service.custom['serverless-offline'].location + '/' + fun.handler;
-            }
-
             const funOptions = functionHelper.getFunctionOptions(fun, key, servicePath, serviceRuntime);
-
-            acc[fun.name] = functionHelper.createHandler(funOptions, {});
+            const handler = functionHelper.createHandler(funOptions, {});
+            acc[fun.name] = handler;
             return acc;
         }, {});
 
@@ -80,12 +79,12 @@ class LambdaOfflineWebpack {
                 },
                 payload: {
                     output: 'stream',
-                    parse: false
+                    parse: false,
                 },
             },
         });
 
-        this.server.start().then(() => this.log(`Offline Lambda Server listening on ${this.server.info.uri}`));
+        this.server.start().then(() => this.log(`Offline Lambda Webpack Server listening on ${this.server.info.uri}`));
     }
 }
 
